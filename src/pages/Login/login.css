@@ -1,0 +1,108 @@
+.login-area {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-area-img {
+  max-width: 69vh;
+  margin: auto;
+}
+.login-area-getapp {
+  max-width: 48vh;
+  margin: auto;
+  text-align: center;
+}
+.login-area-getapp p {
+  margin-bottom: 7px;
+}
+
+.box-area {
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  background: white;
+  text-align: center;
+  font-size: var(--normal-font-size);
+}
+
+.area-qs p a {
+  color: rgb(0, 60, 255);
+}
+
+
+.inst-logo {
+  max-width: 9.813rem;
+  margin-bottom: var(--mb-1-5);
+}
+
+.password-input {
+  position: relative;
+}
+.password-input small{
+  position: absolute;
+  right: 7px;
+  top: 22%;
+  bottom: 0;
+  cursor: pointer;
+  color: #646462;
+}
+
+
+.login-area-form form {
+  max-width: 21rem;
+  margin: auto;
+}
+.login-area-form form button{
+  width: 100%;
+}
+
+.login-box-header h4 {
+  font-weight: 450;
+  color: #555;
+}
+.login-box button[disabled]{
+  opacity: .4;
+}
+
+
+/* =============== REGISTRATION =============== */
+.upload-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid black;
+  overflow: hidden;
+  margin: auto;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+.upload-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.upload-photo input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+
+/* ============ RESPONSIVE ============ */
+/* --- medium --- */
+@media screen and (max-width: 750px) {
+  .login{
+    padding: var(--mb-1) 0;
+  }
+  .login-area-img{
+    display: none;
+  }
+}

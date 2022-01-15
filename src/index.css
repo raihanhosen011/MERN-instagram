@@ -1,0 +1,349 @@
+/*==================== GOOGLE FONTS ====================*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+/*==================== VARIABLES CSS ====================*/
+:root {
+  /* ========== Colors ========== */
+  --secodary-color:hsl(211, 52%, 44%);
+
+  --border-color: hsl(0, 0%, 81%);
+  --button-color: hsl(204, 100%, 48%);
+
+  --scroll-bar-color: hsl(var(--hue-color), 12%, 90%);
+  --scroll-thumb-color: hsl(var(--hue-color), 12%, 80%);
+  
+  --container-color: #fff;
+
+  /*========== Font and typography ==========*/
+  --body-font: "Poppins", sans-serif !important;
+
+  /* .5rem = 8px, 1rem = 16px, 1.5rem = 24px ... */
+  --big-font-size: 1.750rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1.025rem;
+  --normal-font-size: .850rem;
+  --small-font-size: 0.813rem;
+  --smaller-font-size: 0.6rem;
+
+  --desktop-header-height: 60px;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== Margenes Bottom ==========*/
+  /* .25rem = 4px, .5rem = 8px, .75rem = 12px ... */
+  --mb-0-25: 0.25rem;
+  --mb-0-5: 0.5rem;
+  --mb-0-75: 0.75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+  --mb-3: 3rem;
+  --mb-4: 4rem;
+  --mb-5: 5rem;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+}
+
+/* Font size for large devices */
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 3rem;
+    --h1-font-size: 2.5rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.210rem;
+    --normal-font-size: .9rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.7rem;
+    --caption-font-size: 1.0450rem;
+  }
+}
+
+/*========== Variables Dark theme ==========*/
+body.dark-theme {
+  /* HSL color mode */
+  --first-color-second: hsl(var(--hue-color), 30%, 8%);
+  --title-color: hsl(var(--hue-color), 8%, 95%);
+  --text-color: hsl(var(--hue-color), 8%, 75%);
+  --input-color: hsl(var(--hue-color), 29%, 16%);
+  --body-color: hsl(var(--hue-color), 28%, 12%);
+  --container-color: hsl(var(--hue-color), 29%, 16%);
+}
+
+/*==================== BASE ====================*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: hsl(207, 33%, 95%);
+  color: rgb(34, 34, 34);
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  position: relative;
+  overflow-x: hidden;
+}
+ul {
+  list-style: none;
+  margin-bottom: 0 !important;
+}
+a {
+  text-decoration: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 550;
+  color: var(--title-color);
+  margin-bottom: 0;
+}
+p{
+  margin-bottom: 0;
+}
+
+input ,textarea , select {
+  width: 100%;
+  color: #3d3d3e;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 0 !important;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  background: white;
+}
+
+
+::placeholder{
+  font-size: var(--small-font-size);
+}
+
+/*==================== REUSABLE CSS CLASSES ====================*/
+section {
+  padding: 2rem 0 4rem;
+}
+
+.section-head{
+  text-align: center;
+  margin-bottom: var(--mb-1-5);
+}
+.section-title {
+  font-size: var(--h1-font-size);
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: -2px;
+}
+.section-subtitle {
+  display: block;
+  font-size: var(--normal-font-size);
+  margin-bottom: var(--mb-2);
+}
+
+
+.MuiSvgIcon-root {
+  cursor: pointer;
+}
+.MuiPaper-root {
+  border-radius: 10px !important;
+}
+
+.root-card {
+  padding: 10px;
+  background: white;
+}
+.whitespace{
+  margin: var(--mb-1) 0;
+}
+.shadow{
+  border: 1px solid #eaebec !important;
+  box-shadow: 0 6px 22px 0 rgba(0,0,0,0.08) !important;
+  background: white;
+}
+.radius{
+  border-radius: 10px;
+}
+.error {
+  font-size: 95%;
+  color: #e33535;
+  display: block;
+  text-align: start;
+  margin-top: -6px;
+  margin-bottom: 8px;
+}
+
+
+/* --- fonts ---- */
+.h3{
+  font-size: var(--h3-font-size) !important;
+}
+
+/*==================== LAYOUT ====================*/
+.container {
+  max-width: 978px;
+  padding-left: var(--mb-1-5);
+  padding-right: var(--mb-1-5);
+}
+
+/*==================== BUTTONS ====================*/
+button{
+  border: none !important;
+  outline: none !important;
+  cursor: pointer;
+  border-radius: 7px;
+}
+button[disabled] {
+  opacity: .4;
+}
+.button {
+  display: inline-block;
+  background: var(--button-color);
+  font-size: var(--normal-font-size);
+  color: #fff;
+  padding: 0.313rem 1rem;
+  text-align: center;
+}
+
+.buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+.buttons-group a:first-child{
+  margin-right: var(--mb-0-75);
+}
+
+.btn--icon {
+  margin-right: -8px;
+  margin-left: 5px;
+  transition: .3s;
+}
+.button:hover .btn--icon{
+  margin-left: 12px;
+}
+
+
+.button--flex {
+  display: inline-flex;
+  align-items: center;
+}
+.button--white {
+  background: rgba(255, 255, 255, 0) !important;
+  border: 1px solid var(--first-color);
+  color: var(--first-color);
+}
+.button--small {
+  padding: 0.75rem 1rem;
+}
+
+.button--link {
+  padding: 0;
+  background-color: transparent;
+  color: var(--first-color);
+}
+.button--link:hover {
+  background-color: transparent;
+  color: var(--first-color-alt);
+}
+
+/* ============== USER CARD =============== */
+.card-1-right a{
+  color: rgb(0, 81, 255) !important;
+}
+
+/* ============== TEXT CLAMP ================ */
+.clamp-2{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; 
+}
+
+/* -------------- gradient button -------------- */
+.lang-btn {
+  border: none;
+  outline: none;
+  padding: 2px 12px;
+  color: white;
+  border-radius: 15px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+
+/*========== SCROLL BAR ==========*/
+body::-webkit-scrollbar {
+  width: 0.6rem;
+  background-color: var(--scroll-bar-color);
+  border-radius: 0.5rem;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb-color);
+  border-radius: 0.5rem;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-color-light);
+}
+
+
+/*==================== MEDIA QUERIES ====================*/
+/* For small devices */
+@media screen and (max-width: 360px) {
+  .container {
+    margin-left: var(--mb-1);
+    margin-right: var(--mb-1);
+  }
+
+  .button{
+    margin-bottom: var(--mb-0-5) !important;
+  }
+  .button svg{
+    display: none;
+  }
+}
+
+/* For medium devices */
+@media screen and (max-width: 568px) {
+  .container{
+    margin: 0 !important;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  body {
+    margin: 0;
+  }
+  .section {
+    padding: 2rem 0 2rem;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 1280px;
+  }
+}

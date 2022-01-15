@@ -1,0 +1,28 @@
+.post-details-wrapper {
+  margin: 1rem 0;
+  height: 84vh;
+  overflow: hidden;
+  padding: 1rem;
+  background: white;
+}
+.post-details-images {
+  height: 79vh;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-details-images li {
+  display: flex;
+  align-items: center;
+}
+
+.post-details-contents .post-head-bottom{
+  display: none;
+}
+.post-details-contents .post-footer-comments {
+  height: calc(21rem - 50px);
+  overflow-y: auto;
+}

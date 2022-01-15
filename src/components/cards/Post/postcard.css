@@ -1,0 +1,210 @@
+.post-card {
+  background: white;
+  margin-bottom: var(--mb-1-5);
+}
+
+/* ==================== HEAD ==================== */
+.post-head{
+  padding: 10px;
+}
+
+.post-head-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
+}
+.user-info{
+  display: flex;  
+}
+.single-config{
+  display: flex;
+  padding: 10px;
+  padding-right: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: .3s;
+  padding-right: 50px;
+}
+.single-config svg {
+  font-size: 20px;
+}
+.single-config:hover {
+  background: #e1e1e1;
+}
+
+.single-config svg{
+  margin-right: 5px;  
+}
+.single-config:not(:last-child){
+  border-bottom: 1px solid var(--border-color);  
+}
+
+
+.post-caption > p{
+  font-size: var(--caption-font-size);
+  color: rgba(0, 0, 0, 0.774);
+}
+.show-more{
+  margin-top: var(--mb-0-25);
+  display: block;
+  text-align: right;
+  cursor: pointer;
+}
+
+/* ====================== BODY ==================== */
+.post-body{
+  padding: 0 10px;
+}
+
+.post-body .post-body-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: auto;
+  display: block;
+}
+.post-body-img {
+  max-height: 535px;
+  background-color: rgb(29, 29, 29);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.post-body-img .react-multi-carousel-list,.post-body-img .react-multi-carousel-item,.post-body-img .react-multi-carousel-track {
+  max-height: 535px;
+}
+
+/* ============= FOOTER =============== */
+.post-footer {
+  padding: 10px;
+}
+
+.post-footer-counts{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border-color);
+}
+.post-footer-icons ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.post-footer-icons button {
+  margin-right: -10px;
+}
+
+.post-footer-icons ul li:first-child {
+  position: relative;
+}
+.react-popup {
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 50px;
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 17rem;
+  transform: translateY(25px);
+  z-index: -1;
+  opacity: 0;
+  transition: .3s;
+}
+.react-popup img {
+  cursor: pointer;
+  width: 30px;
+  transition: .3s;
+}
+.react-popup img:hover{
+  transform: scale(1.4);
+}
+.thumb-icon:hover .react-popup{
+  transform: translateX(0px);
+  opacity: 1;
+  z-index: 1;
+}
+.post-footer-icons > ul {
+  border-bottom: 1px solid var(--border-color);
+}
+.comment-author > div {
+  margin-right: 7px;
+}
+
+.post-footer-comments {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+}
+.single-comment {
+  margin-left: var(--mb-0-5);
+  background: #ddd;
+  padding: 6px 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+.single-comment .comment {
+  padding-top: 2px;
+  padding-left: var(--mb-0-5);
+  color: #2f2f2f;
+}
+.single-comment .comment-author {
+  margin-top: -19px;
+  width: fit-content;
+  background: #DDD;
+  border-radius: 14px;
+  padding-right: 14px;
+  cursor: pointer;
+}
+.post-footer-comments p {
+  margin-top: var(--mb-0-25);
+}
+
+.comment-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(3px);
+}
+.post-footer-comments > p{
+  cursor: pointer;
+}
+.add-like {
+  margin-left: 18px;
+  cursor: pointer;
+}
+.add-reply {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* ================ ADD POST =================== */
+.addcomment-content {
+  padding-top: 8px;
+}
+
+.addcomment-content form{
+  display: flex;
+  flex: auto;
+}
+.addcomment-content input {
+  margin: 0 12px;
+  border-radius: 10px;
+  background: #e8e8e8;
+  border: none;
+}
+.addcomment-content svg{
+  color: #4b4b4b;
+}
+.addcomment-content button{
+  background: transparent;
+}
+.comment-edit form{
+  display: flex;
+}
+
+/* ========== RESPONSIVE ========== */
+@media screen and (max-width: 665px) {
+  .post-body-img,.post-body-img .react-multi-carousel-list,.post-body-img .react-multi-carousel-track,.post-body-img .react-multi-carousel-item {
+    height: 100%;
+    max-height: 435px;
+  }
+}

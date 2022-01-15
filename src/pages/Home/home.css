@@ -1,0 +1,76 @@
+/* ============= LEFT SIDE ============== */
+.home {
+  padding: var(--mb-2) 0;
+  color: #5e5e5e;
+}
+
+
+.author-texts,.user-texts {
+  margin-left: 12px;
+}
+.author-texts a.author-texts-name,a.user-texts-name {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: -5px;
+  color: #313131;
+}
+.author-texts .author-texts-username,.user-texts-username {
+  font-size: 12px;
+}
+.user-profile,.author-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--mb-0-75);
+}
+
+
+.verified-icon {
+  font-size: 13px;
+  color: #1ea699;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+/* =================== RIGHT SIDE =================== */
+.right-side {
+  background: white;
+  padding: 5px;
+}
+.right-side-lists{
+  margin-bottom: 0;
+}
+.right-side-lists hr{
+  margin: 10px;
+}
+.right-side-lists .single-list{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 7px;
+}
+.single-list a{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.right-side-lists .single-list span{
+  margin-left: 10px;
+}
+.right-side-lists .single-list .MuiAvatar-root{
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.right-side-lists .single-list.profile{
+  background: #e1e1e170;
+}
+
+
+.right-side-lists .single-list.logout{
+  background: #E3F8FA;
+}
+.right-side-lists .single-list.logout svg{
+  color: #26C6DA;
+}

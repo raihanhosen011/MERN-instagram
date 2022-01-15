@@ -1,0 +1,29 @@
+.default-loading {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #8080804f;
+}
+.default-loading img {
+  width: 20rem;
+}
+
+.MuiCollapse-wrapperInner {
+  width: fit-content !important;
+  margin: auto !important;
+  position: absolute !important;
+  right: 0 !important;
+  left: 0 !important;
+  top: 7px !important;
+  z-index: 1000;
+}
+.MuiAlert-standardSuccess {
+  background-color: #d4dfd4 !important;
+}

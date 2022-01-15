@@ -1,0 +1,32 @@
+/* ============ SUGGESTION DESKTOP ============= */
+.suggestion-desktop-head > p {
+  font-size: var(--normal-font-size);
+}
+
+/* ============ SUGGESTION ALL ============= */
+.suggestion-card-all{
+  border: 1px solid var(--border-color);
+  padding: 7px;
+  margin-right: 10px;
+  margin-bottom: 1px;
+}
+
+/* =-========= ALL ========= */
+.see-all{
+  font-size: 14px; 
+  color: var(--secodary-color); 
+}
+
+.user-card-1{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-follow {
+  color: var(--secodary-color);
+}
+.card-1-left {
+  height: 40px;
+}
