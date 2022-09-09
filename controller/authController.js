@@ -90,6 +90,7 @@ const authControl = {
     }
   },
 
+
   // login user
   login: async (req, res) => {
     try {
@@ -162,6 +163,7 @@ const authControl = {
     }
   },
 
+  
   // logout user
   logout: (req, res) => {
     try {

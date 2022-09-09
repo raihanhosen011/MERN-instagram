@@ -63,7 +63,7 @@ const userControl = {
     try {
       // FIND USER POST USING QUERY VALUE
       const posts = Post.find({
-        username : req.params.username,
+        username: req.params.username,
       });
 
       // SEND POST DATA TO JSON
@@ -177,6 +177,122 @@ const userControl = {
       });
     }
   },
+
+  // SUGGESTION USER
+  suggestionUser: async (req, res) => {
+    try {
+      const followingUser = [...req.user.following, req.user._id];
+      const num = req.query.num || 10;
+
+      // GET USER USING AGGREGATE
+      const response = await User.aggregate([
+        { $match: { _id: { $nin: followingUser } } },
+        { $sample: { size: num } },
+      ]).project("-password");
+
+      // SEND DATA
+      res.json({
+        users: response,
+        result: response.length,
+      });
+    } catch (err) {
+      res.status(500).json({
+        errors: {
+          common: {
+            msg: err.message,
+          },
+        },
+      });
+    }
+  },
+
+  // SAVED POST
+  savedPost: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      // SINGLE FOLLOWER INFO
+      const user = await User.find({ _id : req.user._id, saved : id })
+      if(user.length > 0) res.json({ msg : "post already saved"})
+      else{
+        // SAVE
+        const save = await User.findOneAndUpdate(
+          { _id: req.user.id },
+          { $push: { saved: id } },
+          { new: true }
+        )
+
+        if(!save) res.json({ msg : "user does not exist"});    
+        
+        // SEND DATA
+        res.json({ msg : "saved post"});             
+      }
+    } catch (err) {
+      res.status(500).json({
+        errors: {
+          common: {
+            msg: err.message,
+          },
+        },
+      });
+    }
+  },
+
+  // UNSAVED POST
+  unSaved: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      // SAVE
+      const save = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $pull: { saved: id } },
+        { new: true }
+      )
+
+      if(!save) res.json({ msg : "user does not exist"});    
+        
+      // SEND DATA
+      res.json({ msg : "un save post"});             
+    } catch (err) {
+      res.status(500).json({
+        errors: {
+          common: {
+            msg: err.message,
+          },
+        },
+      });
+    }
+  },
+
+  // GET SAVED POST
+  getSavedPost: async (req, res) => {
+    try {
+      const saved = req.user.saved
+
+      // FIND USER USING QUERY VALUE
+      const user = await User.find({_id: req.user._id})
+
+      if(user){
+        // SAVED POSTS
+        const savedPost = await Post.find({
+          _id : {$in : [...saved] }
+        }).populate("content comment images reacts user username _id")
+
+        // SEND USER DATA TO JSON
+        res.json({ savedPost });
+      }
+    } catch (err) {
+      res.status(500).json({
+        errors: {
+          common: {
+            msg: err.message,
+          },
+        },
+      });
+    }
+  },
+
 };
 
 // export module

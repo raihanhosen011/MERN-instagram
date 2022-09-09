@@ -1,6 +1,22 @@
 // INTERNAL IMPORTS
 const Post = require("../models/postModel");
 
+// API FEATURE
+class APIfeatures {
+  constructor(query, queryString){
+      this.query = query;
+      this.queryString = queryString;
+  }
+
+  paginating(){
+      const page = this.queryString.page * 1 || 1
+      const limit = this.queryString.limit * 1 || 9
+      const skip = (page - 1) * limit
+      this.query = this.query.skip(skip).limit(limit)
+      return this;
+  }
+}
+
 // CONTROL POST WITH OBJECT
 const postController = {
   // CREATE POST
@@ -19,7 +35,10 @@ const postController = {
       // SEND CONTENT
       res.json({
         msg: "successfully create new post",
-        post: newPost,
+        post: {
+          ...newPost._doc,
+          user : req.user
+        },
       });
     } catch (err) {
       res.status(400).json({
@@ -35,11 +54,14 @@ const postController = {
   // GET POST
   getPosts: async (req, res) => {
     try {
-      const posts = await Post.find({
+
+      const features = new APIfeatures(Post.find({
         user: { $in: [...req.user.following, req.user._id] },
-      })
+      }), req.query).paginating()
+
+      const posts = await features.query.sort('-createdAt')
         .sort("-createdAt")
-        .populate("user reacts", "avatar fullname username")
+        .populate("user reacts", "avatar fullname username followers")
         .populate("comment");
 
       // send data to api
@@ -48,6 +70,7 @@ const postController = {
         result: posts.length,
         posts,
       });
+
     } catch (err) {
       res.status(500).json({
         errors: {
@@ -122,6 +145,25 @@ const postController = {
       );
 
       res.json({ msg: "successfully updated" });
+    } catch (err) {
+      res.status(400).json({
+        errors: {
+          common: {
+            msg: err.message,
+          },
+        },
+      });
+    }
+  },
+
+  // DELETE POST
+  deletePost: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      await Post.findByIdAndDelete( id );
+
+      res.json({ msg: "successfully deleted" });
     } catch (err) {
       res.status(400).json({
         errors: {

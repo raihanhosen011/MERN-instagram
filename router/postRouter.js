@@ -23,5 +23,8 @@ router.patch("/post/:id/react", auth, postController.likePost);
 // LIKE POST
 router.patch("/post/:id/disreact", auth, postController.dislikePost);
 
+// DELETE POST
+router.delete("/post/:id/delete", auth, postController.deletePost);
+
 // EXPORT MODULE
 module.exports = router;

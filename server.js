@@ -5,21 +5,26 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-// internal imports
-const {
-  notFoundHandler,
-  errorHandler,
-} = require("./middleware/common/errorHandler");
-
+// internal imports 
 const authRouter = require("./router/authRouter");
 const userRouter = require("./router/userRouter");
 const postRouter = require("./router/postRouter");
 const commentRouter = require("./router/commentRouter");
+const notificationRouter = require('./router/notificationRouter')
+const messageRouter = require('./router/messageRouter')
+
+const SocketServer = require('./SocketServer')
 
 const app = express();
 dotenv.config();
 
 app.use(cors());
+
+// internal imports
+const {
+  notFoundHandler,
+  errorHandler,
+} = require("./middleware/common/errorHandler");
 
 // connect database
 mongoose
@@ -29,6 +34,17 @@ mongoose
   })
   .then(() => console.log("database is running..."))
   .catch((err) => console.log("something error when you connect database"));
+
+// socket io
+const http = require("http").createServer(app)
+const io = require('socket.io')(http, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"]
+  }
+})
+
+io.on("connection", (socket) => SocketServer(socket))
 
 // request parser
 app.use([
@@ -45,6 +61,8 @@ app.use("/api/", authRouter);
 app.use("/api/", userRouter);
 app.use("/api/", postRouter);
 app.use("/api/", commentRouter);
+app.use("/api/", notificationRouter);
+app.use("/api/", messageRouter);
 
 // not found handler
 app.use(notFoundHandler);
@@ -53,6 +71,6 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // app listen
-app.listen(process.env.PORT, () =>
+http.listen(process.env.PORT, () =>
   console.log(`app listen on port ${process.env.PORT}`)
 );

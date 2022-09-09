@@ -8,23 +8,35 @@ const { auth } = require("../middleware/user/auth");
 // router
 const router = express.Router();
 
-// search user
+// SEARCH USER
 router.get("/search-user", userController.searchUser);
 
-// get user
+// GET USER
 router.get("/user/:username", userController.getUser);
 
-// get user post
+// GET USER post
 router.get("/user-post/:username", userController.getUserPost);
 
-// update user
+// UPDATE USER
 router.patch("/user", auth, userController.updateUser);
 
-// follow user
+// FOLLOW USER
 router.patch("/user/:username/follow", auth, userController.followUser);
 
-// unfollow user
+// UN-FOLLOW USER
 router.patch("/user/:username/unfollow", auth, userController.unfollowUser);
 
-// export module
+// SUGGESTION DATA
+router.get("/suggestion-user", auth, userController.suggestionUser);
+
+// SAVED POST
+router.patch("/saved-post/:id", auth, userController.savedPost)
+
+// UN SAVED POSTS
+router.patch("/unsaved-post/:id", auth, userController.unSaved)
+
+// GET SAVED POSTS
+router.get("/get-saved-post", auth, userController.getSavedPost)
+
+// EXPORT MODEL
 module.exports = router;
