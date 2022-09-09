@@ -50,10 +50,10 @@ export const patchData = async (url,post,token) => {
 
 // ================= DELETE DATA =================
 export const deleteData = async (url,token) => {
-  const res = await axios.delete(`api/${url}`, {
+  const res = await axios.delete(`http://localhost:5000/api/${url}`, {
     headers : {
-      Authorization : token  
-    }  
+      Authorization : token
+    }
   })
 
   return res

@@ -9,14 +9,13 @@ async function uploadImage(images){
     form.append("upload_preset", "oiezp3ym")
     form.append("cloud_name","raihan-dev")
 
-    const res = await fetch("https://api.cloudinary.com/v1_1/raihan-dev/image/upload",{method:"post",body: form})
+    const res = await fetch("https://api.cloudinary.com/v1_1/raihan-dev/upload",{method:"post",body: form})
     const data = await res.json()
 
-    imgArray.push({ public_id:data.public_id, url: data.secure_url })
+    imgArray.push({ public_id:data.public_id , url: data.secure_url, name : item.name, size : item.size })
   }
 
   return imgArray
 }
 
 export { uploadImage }
-

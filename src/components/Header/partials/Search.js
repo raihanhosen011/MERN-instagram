@@ -23,24 +23,37 @@ function Search() {
 
     return (
         <>
-          <input type='text' name='search' placeholder='search user' onChange={handleChange} />
+          <input type='text' name='search' autocomplete="off"  class="form-control form-control-md chat-input form-control" placeholder='search user...' onChange={handleChange} />
 
           <div className={`search-filter ${searchValue.length === 0 && 'search-hide'}`} >
-             {
-               users.length > 0 && !load && (
-                 <>
-                  <div className='search-filter-users' >
-                    {users?.map(user => <UserOne user={user} click={() => setSearchValue('')} />)}
-                  </div>                 
-                 </>
-               ) 
-             }
-             {
-               users.length < 0 && !load ? <p className='no-user' > users not found </p> : <></>
-             }
-             {
-               load && <img src='./images/gif/loading-buffering.gif' className='loading-gif' alt='loading' />
-             }
+
+            {
+              searchValue.length > 0 &&
+                <>
+                  {
+                    load ? 
+                      <img src='/images/gif/loading.gif' className='m-auto' /> : 
+                      <>
+                        {
+                          users.length > 0 ?
+                            <>
+                              <div className='search-filter-users' >
+                                {users?.map(user => <UserOne user={user} click={() => setSearchValue('')} />)}
+                              </div>  
+                            </>
+                              :
+                            <>
+                              <div className='no-user' > 
+                                 <img src='/images/gif/crying.gif' alt='crying gif' /> 
+                                 <h4> Oops, sorry bro. There is no user by the name "<strong>{searchValue}</strong>" </h4>
+                              </div>
+                            </>
+                        }
+                      </>
+                  }
+                </>
+            }
+
           </div>  
         </>
     )

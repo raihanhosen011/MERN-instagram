@@ -1,10 +1,19 @@
 import { Replay10Outlined } from '@material-ui/icons'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { suggestionUser } from '../../../redux/actions/profileAction'
 import UserCard1 from '../user/UserCard1'
 import './suggestion.css'
 
 const SuggestionDesktop = () => {
+    const { auth, profile } = useSelector(state => state)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+      dispatch(suggestionUser(auth))
+    },[auth.token])
+
     return (
         <>
           <div className='suggestion-desktop' >
@@ -19,11 +28,7 @@ const SuggestionDesktop = () => {
             </div>
 
             <div className='suggestion-desktop-body suggestion-desktop-card my-2' >
-               <UserCard1/>    
-               <UserCard1/>    
-               <UserCard1/>    
-               <UserCard1/>    
-               <UserCard1/>          
+               {profile.suggestion.users?.map(user => <UserCard1 user={user} /> )}   
             </div>
 
           </div>  

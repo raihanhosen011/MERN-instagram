@@ -8,7 +8,7 @@ import { followUser } from '../../../redux/actions/profileAction'
 function UserCard1({ verify,click,user }) {
     const [followed,setFollowed] = useState(false)
 
-    const { profile,auth } = useSelector(state => state)
+    const { profile, auth, socket } = useSelector(state => state)
     const dispatch = useDispatch()
 
     // set follow 
@@ -21,7 +21,7 @@ function UserCard1({ verify,click,user }) {
     // handle follow button -------------
     function handleFollow() {
       setFollowed(true)
-      dispatch(followUser({ users : profile.users, user, auth }))
+      dispatch(followUser({ users : profile.users, user, auth, socket }))
     }
     
     return (

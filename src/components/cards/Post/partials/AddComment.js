@@ -7,7 +7,7 @@ import { createComment } from '../../../../redux/actions/postAction'
 function AddComment({ post }) {
     const [content,setContent] = useState('')
 
-    const { auth } = useSelector(state => state)
+    const { auth, socket } = useSelector(state => state)
     const dispatch = useDispatch()
 
     function handleSubmit(e){
@@ -19,7 +19,7 @@ function AddComment({ post }) {
         author : auth.user
       }
       
-      dispatch(createComment(auth,post,newComment))
+      dispatch(createComment(auth,post,newComment,socket))
       setContent("")  
     }
 

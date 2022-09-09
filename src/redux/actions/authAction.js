@@ -7,6 +7,7 @@ export const login =  (data) => async (dispatch) => {
   try {
     // dispatch notification
     dispatch({ type : GLOBALTYPES.ALERT , payload : {loading : true}})
+    
     // get login data    
     const res = await postData('login',data)
     localStorage.setItem("firstLogin",true)

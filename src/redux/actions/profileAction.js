@@ -1,6 +1,7 @@
 import { getData, patchData } from '../../utils/fetchData';
 import { uploadImage } from '../../utils/uploadImage';
 import { GLOBALTYPES } from './globalTypes';
+import { createNotification } from './notificationAction'
 
 // ============= REDUX PROFILE ACTION TYPE =============
 export const PROFILE_TYPE = {
@@ -8,7 +9,9 @@ export const PROFILE_TYPE = {
   GET_USER: "GET_USER",
   FOLLOW:"FOLLOW",
   UN_FOLLOW:"UN_FOLLOW",
-  GET_POST:"GET_POST"
+  GET_POST:"GET_POST",
+  SUGGESTION_USER: "SUGGESTION_USER",
+  SUGGESTION_LOADING: "SUGGESTION_LOADING"
 };
 
 
@@ -117,7 +120,7 @@ export const updateUser = (userData,avatar,auth) => async (dispatch) => {
 
 
 // ============= FOLLOW USER =============
-export const followUser = ({ users,user,auth }) => async (dispatch) => {
+export const followUser = ({ users,user,auth,socket }) => async (dispatch) => {
   const newUser = {...user,followers:[...user.followers, auth.user]}
 
   // SAVE FOLLOWERS
@@ -128,6 +131,19 @@ export const followUser = ({ users,user,auth }) => async (dispatch) => {
 
   try {
     await patchData(`/user/${user.username}/follow`,null,auth.token)
+
+    // SEND POST NOTIFICATION 
+    const notificationMsg = {
+      id : newUser._id,
+      text : "has started follow you",
+      recipients : [newUser._id],
+      url : `user/${auth.user.username}`,
+      type : 'follow',
+      content : ''
+    }
+
+    dispatch(createNotification(notificationMsg, auth, socket))
+
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
@@ -151,6 +167,31 @@ export const unfollowUser = ({ users,user,auth }) => async (dispatch) => {
 
   try {
     await patchData(`/user/${user.username}/unfollow`,null, auth.token)
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        err: err.message,
+      },
+    });
+  }
+}
+
+
+// ============= SUGGESTION USER =============
+export const suggestionUser = (auth) => async (dispatch) => {
+  try {
+    // LOADING SUGGESTION USER
+    dispatch({ type : PROFILE_TYPE.SUGGESTION_LOADING, payload : true })  
+
+    // GET SUGGESTION USER DATA USING AXIOS 
+    const res = await getData('suggestion-user', auth.token)
+
+    // SEND FOUND DATA TO PROFILE REDUCER
+    dispatch({ type: PROFILE_TYPE.SUGGESTION_USER, payload: res.data })
+
+    // STOP LOADING
+    dispatch({ type : PROFILE_TYPE.SUGGESTION_LOADING, payload : false })  
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

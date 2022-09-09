@@ -30,7 +30,12 @@ const postReducer = (state = initialState,action) => {
 
     case POST_TYPE.UPDATE_POST : return {
       ...state,
-      posts : state.posts.map(post => post._id == action.payload._id ? action.payload : post)
+      posts : state.posts.map(post => post._id === action.payload._id ? action.payload : post)
+    }
+
+    case POST_TYPE.DELETE_POST : return {
+      ...state,
+      posts : state.posts.filter(post => post._id !== action.payload)
     }
 
     case POST_TYPE.POST_LOADING : return {

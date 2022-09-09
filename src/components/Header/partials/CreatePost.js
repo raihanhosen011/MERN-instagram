@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes';
 import { createPost } from '../../../redux/actions/postAction';
+import { ImgShow, VideoShow } from '../../../utils/mediaShow'
 
 const CreatePost = () => {
    const [open, setOpen] = useState(false);
@@ -13,7 +14,7 @@ const CreatePost = () => {
    const [images,setImages] = useState([])
    const [content,setContent] = useState('')
    
-   const { auth, posts } = useSelector(state => state)
+   const { auth, posts, socket } = useSelector(state => state)
    const dispatch = useDispatch()
 
    // handle file
@@ -27,10 +28,6 @@ const CreatePost = () => {
             return err = "File does not exist."
          } 
          
-         if (file.type !== 'image/jpg' && file.type !== 'image/png' && file.type !== 'image/jpeg'){
-            return err = "This format is not supported. only support (jpg,png or jpeg)"
-         }
-
          if(file.size > 1024 * 1024 * 5){
             return err = "The image/video largest is 5mb."
          }
@@ -40,12 +37,12 @@ const CreatePost = () => {
 
       if(err) dispatch({ type:GLOBALTYPES.ALERT, payload : {err : {common : {  msg : err}}} })
       setImages([...images, ...imgArray])  
-   }  
+   }
 
    // handle submit
    function handleSubmit(e){
       e.preventDefault()
-      dispatch(createPost(content, images, auth, setIsSuccess)) // send all data to createPost function
+      dispatch(createPost(content, images, auth, setIsSuccess, socket)) // send all data to createPost function
    }
 
    // handle click 
@@ -56,7 +53,7 @@ const CreatePost = () => {
       setOpen(false)
    }
 
-    return (
+   return (
           <>   
              <IconButton onClick={() => setOpen(true)} > <AddBoxOutlined/> </IconButton>
 
@@ -93,9 +90,7 @@ const CreatePost = () => {
                               <textarea name='post-desc' placeholder="What's your mind." onChange={e => setContent(e.target.value)} className='post-desc' />
 
                               <div className='post-content-images' >
-                                 {
-                                 images.length > 0 && images.map(_ => <img src={URL.createObjectURL(_)} />) 
-                                 }
+                                 { images.length > 0 && images.map(_ => _.type.match(/video/i) ? VideoShow(_,setImages,images) : ImgShow(_,setImages,images) ) }
                               </div>
 
                               <div className='post-icons' >
@@ -106,7 +101,7 @@ const CreatePost = () => {
                                  <div className='post-icons-right' >
                                     <IconButton className='post-video post-file' >
                                        <VideoCallOutlined className='video-icon' />
-                                       <input type='file' name='videos' accept='video/*' onChange={fileHandler} />
+                                       <input type='file' name='videos' accept='video/*' multiple onChange={fileHandler} />
                                     </IconButton>
                                     
                                     <IconButton className='post-img post-file' >

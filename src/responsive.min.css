@@ -1875,13 +1875,7 @@ pre code {
   background-color: transparent;
   border: 0;
 }
-.form-control:focus {
-  color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
+
 .form-control::-webkit-input-placeholder {
   color: #6c757d;
   opacity: 1;
@@ -4377,7 +4371,6 @@ tbody.collapse.show {
   padding: 0.75rem 1.25rem;
   margin-bottom: -1px;
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 .list-group-item:first-child {
   border-top-left-radius: 0.25rem;
@@ -7802,6 +7795,10 @@ a.text-dark {
 .invisible {
   visibility: hidden !important;
 }
+.text-grey{
+  color: gray;
+}
+
 @media print {
   *,
   ::after,
@@ -7828,6 +7825,40 @@ a.text-dark {
   }
 }
 
+
+.text-start{
+  text-align: start;
+}
+.font-size-14{
+  font-size: 14px;
+}
+.font-size-13{
+  font-size: 13px;
+}
+
+.radius-8{
+  border-radius: 8px;
+}
+.radius-5{
+  border-radius: 5px;
+}
+.radius-10{
+  border-radius: 10px;
+}
+.radius-15{
+  border-radius: 15px;
+}
+.pointer{
+  cursor: pointer;
+}
+
+
+.font-400{
+  font-weight: 400;
+}
+.font-350{
+  font-weight: 350;
+}
 
 /* ========= MUI ======== */
 .MuiAvatar-root {

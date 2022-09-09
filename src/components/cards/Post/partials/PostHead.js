@@ -1,16 +1,30 @@
 import { Avatar, Dialog } from '@material-ui/core';
-import { FileCopyOutlined, MoreVert, PlaylistAddCheckOutlined } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { DeleteOutline, FileCopyOutlined, MoreVert, PlaylistAddCheckOutlined } from '@material-ui/icons';
 import moment from 'moment';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deletePost } from '../../../../redux/actions/postAction';
 
 function PostHead({ post }) {
     const [open, setOpen] = useState(false);
+    const [openDelPopup, setOpenDelPopup] = useState(false);
     const [captionToggle,setCaptionToggle] = useState(false)
-    
-    const { auth } = useSelector(state => state)
 
+    const { auth } = useSelector(state => state)
+    const dispatch = useDispatch()  
+    
+    async function handleDelete() {
+      await dispatch(deletePost(post, auth))
+      setOpen(false)
+      setOpenDelPopup(false)
+    }
+    
     return (
         <>
           <div className='post-head' >
@@ -35,10 +49,9 @@ function PostHead({ post }) {
                   >
                      
                      <ul>
-                        {auth.user._id === post.user._id && (
+                        {auth.user._id === post.user[0]._id && (
                            <>
-                              <li className='single-config' > <FileCopyOutlined/> Edit post </li> 
-                              <li className='single-config' > <FileCopyOutlined/> Delete post </li>                             
+                              <li className='single-config' onClick={() => setOpenDelPopup(true)} > <DeleteOutline/> Delete post </li>                             
                            </>
                           )  
                         }
@@ -59,6 +72,33 @@ function PostHead({ post }) {
                </div>
             </div>
           </div>   
+
+          <div className='post-popups' >
+             {/* DELETE POPUP */}
+               <Dialog
+                  open={openDelPopup}
+                  keepMounted
+                  onClose={() => setOpenDelPopup(false)}
+                  className='dialog-box'
+               >
+                     <DialogTitle id="alert-dialog-title"> Delete post? </DialogTitle>
+
+                     <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                           Are you sure you want to permanently remove this post from Fakegram?
+                        </DialogContentText>
+                     </DialogContent>
+                     
+                     <DialogActions>
+                        <Button onClick={() => setOpenDelPopup(false)} color="primary">
+                           cancel
+                        </Button>
+                        <Button onClick={handleDelete} variant="contained" color="primary" autoFocus>
+                           delete
+                        </Button>
+                     </DialogActions>
+               </Dialog>
+          </div>
         </>
     )
 }

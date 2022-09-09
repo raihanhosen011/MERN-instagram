@@ -130,7 +130,7 @@ input ,textarea , select {
   margin-bottom: 0 !important;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  background: white;
+  background: var(--body-white);
 }
 
 
@@ -290,17 +290,17 @@ button[disabled] {
 
 
 /*========== SCROLL BAR ==========*/
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,.simplebar-content-wrapper::-webkit-scrollbar {
   width: 0.6rem;
-  background-color: var(--scroll-bar-color);
+  background-color: rgb(209, 207, 207);
   border-radius: 0.5rem;
 }
-body::-webkit-scrollbar-thumb {
-  background-color: var(--scroll-thumb-color);
+body::-webkit-scrollbar-thumb,.simplebar-content-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgb(172, 172, 172);
   border-radius: 0.5rem;
 }
-body::-webkit-scrollbar-thumb:hover {
-  background-color: var(--text-color-light);
+body::-webkit-scrollbar-thumb:hover,.simplebar-content-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(126, 125, 125);
 }
 
 

@@ -15,7 +15,7 @@ function PostBody({ post }) {
           <div className='post-body' >
             <div className='post-body-img' >
               <Carousel responsive={responsive} >
-                {post.images?.map(({ url }) =>  <img src={url} alt='' />)}
+                {post.images?.map(({ url }) => url?.match(/video/i) ? <video controls src={url} alt='' /> : <img src={url} alt='' /> )}
               </Carousel>
             </div>
           </div>   

@@ -5,7 +5,9 @@ import { PROFILE_TYPE } from '../actions/profileAction';
 const initialState = {
   loading : false,
   users : [],
-  userPosts : []
+  userPosts : [],
+  suggestion:[],
+  suggestion_loading:false
 }
 
 // set reducer function
@@ -23,17 +25,34 @@ const profileReducer = (state = initialState,action) => {
         users: [...state.users, action.payload.users]
       };
 
+
       // GET USER POST ACTION
       case PROFILE_TYPE.GET_POST : return {
         ...state,
         userPosts: [...state.userPosts, ...action.payload.posts]
       };
 
+
       // FOLLOW USER ACTION
       case PROFILE_TYPE.FOLLOW : return {
         ...state,
         users: state.users.map(user => user.username == action.payload.username ? action.payload : user)
       };
+
+
+      // FOLLOW USER ACTION
+      case PROFILE_TYPE.SUGGESTION_USER : return {
+        ...state,
+        suggestion : action.payload
+      };
+
+
+      // SUGGESTION LOADING 
+      case PROFILE_TYPE.SUGGESTION_LOADING : return {
+        ...state,
+        suggestion_loading : action.payload
+      };
+
 
       // UN-FOLLOW USER ACTION
       case PROFILE_TYPE.UN_FOLLOW : return {

@@ -8,7 +8,7 @@ import DataProvider from './redux/store';
 
 ReactDOM.render(
     <Router>
-        <DataProvider><App /></DataProvider>
+       <DataProvider><App /></DataProvider>
     </Router>,
     document.getElementById('root')
 );

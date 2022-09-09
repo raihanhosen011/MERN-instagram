@@ -1,8 +1,8 @@
 import { IconButton } from '@material-ui/core'
-import { BookmarkBorderOutlined, CommentOutlined, ShareOutlined } from '@material-ui/icons'
+import { BookmarkBorderOutlined, CommentOutlined, ShareOutlined, Bookmark } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { dislikePost, likePost } from '../../../../redux/actions/postAction'
+import { dislikePost, likePost, savePost, unsavePost } from '../../../../redux/actions/postAction'
 import AddComment from './AddComment'
 import HandleLike from './HandleLike'
 import PostComment from './PostComment'
@@ -13,7 +13,9 @@ function PostFooter({ post }) {
     const [isLike,setIsLike] = useState(false)
     const [isLoad,setIsLoad] = useState(false)
 
-    const { auth } = useSelector(state => state)
+    const [isSaved,setIsSaved] = useState(false)
+
+    const { auth, socket } = useSelector(state => state)
     const dispatch = useDispatch()
     
     useEffect(() => {
@@ -24,12 +26,20 @@ function PostFooter({ post }) {
       })
     },[auth.user._id,post.reacts])
 
+    useEffect(() => {
+      auth.user.saved.map(saveId => {
+        if(saveId == post._id){
+          return setIsSaved(true)
+        }
+      })
+    }, [auth.user])
+
    //  handle like function 
     async function likeHandler(){
       if(isLoad) return; 
       setIsLike(true)
       setIsLoad(true)
-      await dispatch(likePost(post,auth))
+      await dispatch(likePost(post,auth,socket))
       setIsLoad(false)
     }
    
@@ -40,6 +50,18 @@ function PostFooter({ post }) {
       setIsLoad(true)
       await dispatch(dislikePost(post, auth))
       setIsLoad(false)
+    }
+
+    // handle save
+    async function handleSave(){
+      setIsSaved(true)
+      await dispatch(savePost(post, auth))
+    }
+
+    // handle unsave
+    async function handleUnSave(){
+      setIsSaved(false)
+      await dispatch(unsavePost(post, auth))
     }
 
     return (
@@ -59,9 +81,13 @@ function PostFooter({ post }) {
                   />
                 </li> 
 
-                <li><IconButton><CommentOutlined/></IconButton> Comment</li> 
-                <li><IconButton><ShareOutlined/></IconButton> Share</li> 
-                <li> <IconButton><BookmarkBorderOutlined/></IconButton> Save</li> 
+                <li> <IconButton><CommentOutlined/></IconButton> Comment</li> 
+                <li> <IconButton><ShareOutlined/></IconButton> Share</li> 
+                <li> {!isSaved 
+                       ? <><IconButton onClick={handleSave} ><BookmarkBorderOutlined/></IconButton> save</>
+                       : <><IconButton onClick={handleUnSave} ><Bookmark/></IconButton> saved</>
+                     }
+                </li> 
               </ul>           
            </div>
 
